@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUST_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/hello/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/hello/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/mod_study/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/hello/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/hello/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/mod_study/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
