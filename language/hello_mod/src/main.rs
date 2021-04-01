@@ -1,8 +1,8 @@
 extern crate guess_game;
 
 mod hello;
-mod hello_sub;
 mod hello_dir;
+mod hello_sub;
 
 use ::function_name::named;
 
@@ -10,7 +10,11 @@ use ::function_name::named;
 
 #[named]
 fn test() {
-    println!("hello_mod from: func: [{} fn] mod_path:  [{}]", function_name!(), module_path!())
+    println!(
+        "hello_mod from: func: [{} fn] mod_path:  [{}]",
+        function_name!(),
+        module_path!()
+    )
 }
 
 fn main() {
