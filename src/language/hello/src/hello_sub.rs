@@ -1,7 +1,11 @@
+
+
 pub mod hello_kk {
     pub mod hello_pub {
+        use ::function_name::named;
+        #[named]
         pub fn hello() {
-            println!("hello from: mod: [{}] file:  [{}]", "hello_sub::hello_kk::hello_pub::hello()", "hello_sub.rs")
+            println!("hello from: func: [{} fn] mod_path:  [{}]", function_name!(),module_path!())
         }
         fn hello_private(){}
     }

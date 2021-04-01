@@ -1,5 +1,7 @@
 // curr in hello mod
+use ::function_name::named;
 
+#[named]
 pub fn hello() {
-    println!("hello from: mod: [{}] file:  [{}]", "hello::hello()", "hello.rs")
+    println!("hello from: func: [{} fn] mod_path:  [{}]", function_name!(),module_path!())
 }
