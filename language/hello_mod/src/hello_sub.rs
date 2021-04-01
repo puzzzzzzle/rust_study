@@ -13,6 +13,5 @@ pub mod hello_kk {
         }
     }
 
-    mod hello_private {
-    }
+    mod hello_private {}
 }
