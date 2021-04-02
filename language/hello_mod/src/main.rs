@@ -9,16 +9,44 @@ use ::function_name::named;
 // use crate::guess_game;
 
 #[named]
-fn test() {
+fn test() -> i32 {
     println!(
         "hello_mod from: func: [{} fn] mod_path:  [{}]",
         function_name!(),
         module_path!()
-    )
+    );
+    return 42;
+}
+
+#[named]
+fn test_1() -> i32 {
+    println!(
+        "hello_mod from: func: [{} fn] mod_path:  [{}]",
+        function_name!(),
+        module_path!()
+    );
+    42
+}
+
+#[named]
+fn test_2() {
+    // return void
+    println!(
+        "hello_mod from: func: [{} fn] mod_path:  [{}]",
+        function_name!(),
+        module_path!()
+    );
 }
 
 fn main() {
-    test();
+    let ret = test();
+    println!("{}", ret);
+    let ret = test_1();
+    println!("{}", ret);
+
+    let ret = test_2();
+    // println!("{}", ret);
+
     hello::hello();
     // error
     // hello_sub::hello_kk::hello_pub::hello_private();
