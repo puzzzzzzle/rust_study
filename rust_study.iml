@@ -5,16 +5,20 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/hello/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/language/guess_game/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/language/hello_mod/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/guess_game/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/hello_mod/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/language/mod_study/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/language/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/common/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/language/common_concepts/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/hello/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/language/target" />
-      <excludeFolder url="file://$MODULE_DIR$/language/hello_mod/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/hello_mod/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/language/mod_study/target" />
-      <excludeFolder url="file://$MODULE_DIR$/language/guess_game/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/guess_game/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/language/common_concepts/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/common/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
