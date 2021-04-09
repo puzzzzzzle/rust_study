@@ -1,10 +1,9 @@
-extern crate guess_game;
-
 mod hello;
 mod hello_dir;
 mod hello_sub;
 
 use ::function_name::named;
+use guess_game;
 
 // use crate::guess_game;
 
