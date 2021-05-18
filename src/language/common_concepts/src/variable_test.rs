@@ -79,7 +79,7 @@ pub fn value_type() {
     // error: 数组没有初始化, 后面也不再允许使用
     // arr[2] = 42;
     // 初始化后就可以使用了
-    arr = [-200;10];
+    arr = [-200; 10];
     arr[2] = 42;
     println!("The value of arr is: {}", arr[2]);
 
