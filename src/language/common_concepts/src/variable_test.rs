@@ -23,7 +23,7 @@ pub fn var_change() {
 
     println!("The value of x is: {}", x);
 
-    let mut spaces = "   ";
+    let spaces = "   ";
     println!("The value of spaces is: {}", spaces);
     let spaces = spaces.len();
     println!("The value of spaces is: {}", spaces);
@@ -37,6 +37,7 @@ pub fn var_change() {
 }
 
 #[test]
+#[allow(unused_variables)]
 pub fn value_type() {
     let var: i32;
     // error : var  possibly-uninitialized

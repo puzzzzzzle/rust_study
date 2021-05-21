@@ -1,4 +1,5 @@
 #[test]
+#[allow(unused_variables)]
 fn test_struct() {
     let mut user1 = User {
         username: "khalid".to_string(),
@@ -11,6 +12,7 @@ fn test_struct() {
     let black = Color(0, 0, 0);
     println!("{}", black.0)
 }
+#[allow(dead_code)]
 struct User {
     username: String,
     email: String,
@@ -25,7 +27,9 @@ fn build_user(username: String) -> User {
         active: true,
     }
 }
+#[allow(dead_code)]
 struct Color(i32, i32, i32);
+#[allow(dead_code)]
 struct Point(i32, i32, i32);
 
 #[test]
@@ -54,6 +58,7 @@ impl Rectangle {
         self.width * self.height
     }
 }
+#[allow(dead_code)]
 impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height

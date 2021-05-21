@@ -28,16 +28,16 @@ fn test_if(cond: bool) -> i32 {
     println!("get number {}", number);
     number
 }
-
+#[allow(unused_variables)]
 fn loop_test() {
-    let mut arr = [0; 10];
+    let arr = [0; 10];
     // loop
     {
         let mut index = 0;
         let end_index = loop {
             println!("loop {} {}", index, arr[index]);
             index += 1;
-            if (index >= arr.len()) {
+            if index >= arr.len() {
                 break index;
             }
         };

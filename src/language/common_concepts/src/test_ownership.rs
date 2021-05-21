@@ -40,7 +40,7 @@ fn test_ref() {
     }
 
     // s2 s3 不再可用
-    let mut s4 = &mut s1;
+    let s4 = &mut s1;
     println!("{}", s4);
 }
 fn borrow(s: &mut String) {

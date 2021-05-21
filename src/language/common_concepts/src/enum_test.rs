@@ -1,5 +1,3 @@
-use std::fmt;
-
 mod row_enum {
     #[derive(Debug)]
     enum IpAddrKind {
@@ -14,13 +12,14 @@ mod row_enum {
     }
 
     #[test]
-    fn emun_test() {
-        let v4 = IpAddrKind::V4;
-        let home = IpAddr {
+    #[allow(dead_code)]
+    fn enum_test() {
+        let _v4 = IpAddrKind::V4;
+        let _home = IpAddr {
             kind: IpAddrKind::V4,
             address: String::from("127.0.0.1"),
         };
-        let loopback = IpAddr {
+        let _loopback = IpAddr {
             kind: IpAddrKind::V6,
             address: String::from("::1"),
         };
