@@ -12,14 +12,14 @@ mod row_enum {
     }
 
     #[test]
-    #[allow(dead_code)]
+    #[allow(unused_variables)]
     fn enum_test() {
-        let _v4 = IpAddrKind::V4;
-        let _home = IpAddr {
+        let v4 = IpAddrKind::V4;
+        let home = IpAddr {
             kind: IpAddrKind::V4,
             address: String::from("127.0.0.1"),
         };
-        let _loopback = IpAddr {
+        let loopback = IpAddr {
             kind: IpAddrKind::V6,
             address: String::from("::1"),
         };
@@ -30,6 +30,16 @@ mod enum_with_str {
     use std::fmt;
     use std::fmt::Formatter;
 
+    /// code for test
+    /// # Example
+    /// ```
+    /// code for test
+    /// UnknownIpAddr {
+    ///             name: String::from("khalid"),
+    ///             msg: String::from("tao"),
+    ///             value: 42,
+    ///         }
+    /// ```
     #[derive(Debug)]
     struct UnknownIpAddr {
         name: String,
@@ -51,6 +61,14 @@ mod enum_with_str {
     }
 
     impl fmt::Display for IpAddr {
+        /// 格式化输出
+        /// # Paras
+        /// * `f` 输出buf
+        /// # Example
+        /// ```
+        /// fmt
+        /// ```
+        ///
         fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
             match self {
                 IpAddr::V4(s) => write!(f, "ip4 :{}", s),
@@ -59,7 +77,6 @@ mod enum_with_str {
             }
         }
     }
-
     #[test]
     fn enum_test() {
         let home = IpAddr::V4(String::from("127.0.0.1"));
