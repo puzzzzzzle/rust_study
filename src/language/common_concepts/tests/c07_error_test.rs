@@ -9,12 +9,14 @@ use std::fs::remove_file;
 static FILE_NAME: &str = "hello.txt";
 
 #[test]
+#[should_panic]
 fn panic_test() {
     panic!("crash here")
 }
 
 #[test]
 #[allow(unused_variables)]
+#[should_panic]
 fn result_match_test() {
     let rm = remove_file(FILE_NAME);
     let f = File::open(FILE_NAME);
@@ -47,6 +49,7 @@ fn result_match_resume_test() {
 
 #[test]
 #[allow(unused_variables)]
+#[should_panic]
 fn unwrap_test() {
     let rm = remove_file(FILE_NAME);
     let f = File::open(FILE_NAME).unwrap();
@@ -54,6 +57,7 @@ fn unwrap_test() {
 
 #[test]
 #[allow(unused_variables)]
+#[should_panic]
 fn expect_test() {
     let rm = remove_file(FILE_NAME);
     let f = File::open(FILE_NAME).expect("Failed to open");
@@ -84,6 +88,7 @@ fn read_username_from_file_simple(name: &str) -> Result<String, io::Error> {
 #[test]
 #[allow(unused_variables)]
 fn test_read_file() {
+    let r =std::fs::write(FILE_NAME,"hello");
     let s = read_username_from_file(FILE_NAME).unwrap();
     println!("{}", s);
     let s = read_username_from_file_simple(FILE_NAME).unwrap();
