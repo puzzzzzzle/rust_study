@@ -3,6 +3,8 @@
 members = [
     "common",
     "language/common_concepts",
+#    "language/rust_call_c_auto",
+    "language/rust_call_c_manul",
     "module_test/guess_game",
     "module_test/hello_mod",
 ]

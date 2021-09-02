@@ -4,7 +4,7 @@ mod hello_sub;
 
 use ::function_name::named;
 use guess_game;
-use rand;
+// use rand;
 // use crate::guess_game;
 
 #[named]
