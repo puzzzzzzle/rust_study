@@ -1,13 +1,8 @@
-[package]
-name = "rust_study"
-version = "0.1.0"
-authors = ["khalidzhang <khalidzhang@tencent.com>"]
-edition = "2018"
+[workspace]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-common = { path = "src/common" }
-common_concepts = { path = "src/language/common_concepts" }
-guess_game = { path = "src/language/guess_game" }
-hello_mod = { path = "src/language/hello_mod" }
+members = [
+    "common",
+    "language/common_concepts",
+    "language/guess_game",
+    "language/hello_mod",
+]
