@@ -43,7 +43,7 @@ fn main() {
     let ret = test_1();
     println!("{}", ret);
 
-    let ret = test_2();
+    let _ret = test_2();
     // println!("{}", ret);
 
     hello::hello();

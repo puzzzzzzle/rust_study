@@ -3,6 +3,6 @@
 members = [
     "common",
     "language/common_concepts",
-    "language/guess_game",
-    "language/hello_mod",
+    "module_test/guess_game",
+    "module_test/hello_mod",
 ]
