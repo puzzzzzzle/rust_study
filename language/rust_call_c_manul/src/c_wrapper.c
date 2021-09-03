@@ -18,6 +18,7 @@ int test() {
 }
 
 int c_zero() { return test(); }
+int c_one_t() { return 0; }
 
 extern int rs_zero();
 
