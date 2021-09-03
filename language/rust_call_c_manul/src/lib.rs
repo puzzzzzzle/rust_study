@@ -7,7 +7,11 @@ extern
     pub fn c_get_rs_value() -> libc::c_int;
 }
 
-// 给c 导出的函数
+/// 给c 导出的函数
+/// ## Example
+/// ```c
+/// extern int rs_zero();
+/// ```
 #[no_mangle]
 pub extern "C" fn rs_zero() -> libc::c_int
 {
