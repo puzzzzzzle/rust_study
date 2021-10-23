@@ -38,6 +38,7 @@ name = "common_concepts"
 version = "0.1.0"
 dependencies = [
  "futures",
+ "rand 0.5.6",
 ]
 
 [[package]]
