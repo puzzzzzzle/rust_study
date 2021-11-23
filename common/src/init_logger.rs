@@ -3,7 +3,7 @@ use std::env;
 
 #[derive(Debug)]
 pub struct LogPath {
-    path: String,
+    path: Option<String>,
 }
 
 impl Default for LogPath {
@@ -17,7 +17,10 @@ impl Default for LogPath {
             if curr_check_conf.as_path().exists() {
                 // 找到了就返回
                 break LogPath {
-                    path: String::from(dbg!(curr_check_conf.as_os_str().to_str().unwrap())),
+                    path: Some(String::from(dbg!(curr_check_conf
+                        .as_os_str()
+                        .to_str()
+                        .unwrap()))),
                 };
             }
             // 没找到就更新
@@ -25,16 +28,17 @@ impl Default for LogPath {
                 curr_path = curr_path.parent().unwrap().to_path_buf()
             } else {
                 // 到头了, 返回失败吧
-                break LogPath {
-                    path: String::from(dbg!("")),
-                };
+                break LogPath { path: None };
             };
         }
     }
 }
 
 pub fn init_logger(path: LogPath) -> anyhow::Result<()> {
-    log4rs::init_file(path.path, Default::default())?;
+    log4rs::init_file(
+        path.path.or_else(|| Some(String::from(""))).unwrap(),
+        Default::default(),
+    )?;
     Ok(())
 }
 
