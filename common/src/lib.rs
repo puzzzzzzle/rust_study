@@ -1,3 +1,5 @@
+pub mod init_logger;
+
 #[cfg(test)]
 mod tests {
     #[test]

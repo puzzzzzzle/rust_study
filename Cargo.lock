@@ -72,14 +72,19 @@ dependencies = [
 [[package]]
 name = "common"
 version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "log4rs",
+]
 
 [[package]]
 name = "common_concepts"
 version = "0.1.0"
 dependencies = [
+ "common",
  "futures",
  "log",
- "log4rs",
  "rand 0.5.6",
 ]
 

@@ -9,5 +9,5 @@ edition = "2018"
 [dependencies]
 futures = "*"
 rand = "0.5.5"
+common = { path = "../../common" }
 log = "*"
-log4rs = "*"
