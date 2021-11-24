@@ -38,16 +38,3 @@ pub fn init_logger(path: String) -> anyhow::Result<()> {
     log4rs::init_file(path, Default::default())?;
     Ok(())
 }
-
-#[cfg(test)]
-#[allow(unused_imports)]
-mod test {
-    use crate::init_logger;
-    use log::*;
-    use std::path::PathBuf;
-    #[test]
-    fn test_init() {
-        init_logger::init_logger(Default::default()).unwrap();
-        info!("log started!")
-    }
-}

@@ -18,7 +18,7 @@ mod tests {
     #[test]
     fn it_works() {
         crate::init_env().unwrap();
-        info!("started");
+        info!("start logging !");
         assert_eq!(2 + 2, 4);
     }
 }
