@@ -1,9 +1,8 @@
 use common;
 use log::*;
 use std::env;
-
 fn main() {
-    common::init_logger::init_logger(Default::default()).unwrap();
+    common::init_env().unwrap();
     info!("hello info");
     info!(
         "cwd {}",

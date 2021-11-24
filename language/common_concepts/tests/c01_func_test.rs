@@ -1,10 +1,15 @@
+use common;
+use log::*;
+
 #[test]
 fn func_test() {
+    common::init_env().unwrap();
+
     hello_func();
     hello_int(42);
-    println!("hello by ret {}", hello_ret_int(40));
-    println!("hello by test_if {}", test_if(true));
-    println!("hello by test_if {}", test_if(false));
+    info!("hello by ret {}", hello_ret_int(40));
+    info!("hello by test_if {}", test_if(true));
+    info!("hello by test_if {}", test_if(false));
     loop_test();
 }
 fn hello_func() {

@@ -1,44 +1,41 @@
+use crate::get_run_dir::get_run_dir;
 use log4rs;
-use std::env;
+use std::path::PathBuf;
 
 #[derive(Debug)]
-pub struct LogPath {
-    path: Option<String>,
+pub struct LogConfName {
+    pub name: String,
 }
-
-impl Default for LogPath {
+impl Default for LogConfName {
     fn default() -> Self {
-        let mut curr_path = dbg!(env::current_dir().unwrap());
         let conf_relative_path = "data/configure/log4rs.yaml";
-        loop {
-            // 先看看当前路径下有没有配置文件
-            let mut curr_check_conf = curr_path.clone();
-            curr_check_conf.push(conf_relative_path);
-            if curr_check_conf.as_path().exists() {
-                // 找到了就返回
-                break LogPath {
-                    path: Some(String::from(dbg!(curr_check_conf
-                        .as_os_str()
-                        .to_str()
-                        .unwrap()))),
-                };
-            }
-            // 没找到就更新
-            if curr_path.parent().is_some() {
-                curr_path = curr_path.parent().unwrap().to_path_buf()
-            } else {
-                // 到头了, 返回失败吧
-                break LogPath { path: None };
-            };
+        LogConfName {
+            name: conf_relative_path.to_string(),
         }
     }
 }
 
-pub fn init_logger(path: LogPath) -> anyhow::Result<()> {
-    log4rs::init_file(
-        path.path.or_else(|| Some(String::from(""))).unwrap(),
-        Default::default(),
-    )?;
+#[derive(Debug)]
+pub struct LogPath {
+    pub path: Option<String>,
+}
+impl Default for LogPath {
+    fn default() -> Self {
+        match get_run_dir(LogConfName::default().name.as_str()) {
+            Ok(run_dir) => {
+                let mut p = PathBuf::from(run_dir);
+                p.push(LogConfName::default().name);
+                LogPath {
+                    path: Some(p.as_os_str().to_str().unwrap().to_string()),
+                }
+            }
+            Err(_) => LogPath { path: None },
+        }
+    }
+}
+
+pub fn init_logger(path: String) -> anyhow::Result<()> {
+    log4rs::init_file(path, Default::default())?;
     Ok(())
 }
 
