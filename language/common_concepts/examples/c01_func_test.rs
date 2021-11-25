@@ -63,3 +63,5 @@ fn loop_test() {
         }
     };
 }
+
+fn main() {}

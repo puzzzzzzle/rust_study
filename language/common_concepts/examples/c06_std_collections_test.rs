@@ -61,8 +61,7 @@ mod test_collections {
     use std::collections::HashMap;
 
     #[test]
-    fn test_map()
-    {
+    fn test_map() {
         // map 会拿走所有权
         let mut map1 = HashMap::new();
         // 类似c++的[]符号, 不存在就创建, 存在就更新
@@ -76,7 +75,7 @@ mod test_collections {
 
         // 不存在再更新等逻辑
         map1.entry("k2".to_string()).or_insert("v2".to_string());
-        map1.entry("k2".to_string()).or_insert("v22".to_string());  // 以存在后, 不会更新
+        map1.entry("k2".to_string()).or_insert("v22".to_string()); // 以存在后, 不会更新
         println!("{:?}", map1["k2"]);
 
         {
@@ -96,3 +95,5 @@ mod test_collections {
         println!("{:?}", map1["k2"]);
     }
 }
+
+fn main() {}

@@ -92,13 +92,14 @@ mod enum_with_str {
         println!("{:#?}", unknown);
         println!("{}", unknown);
         let some_value = Some(3);
-        let res = if let Some(3) = some_value{
+        let res = if let Some(3) = some_value {
             println!("three");
             "aha"
-        }else {
+        } else {
             "fail"
         };
-        println!("{}",res)
-
+        println!("{}", res)
     }
 }
+
+fn main() {}

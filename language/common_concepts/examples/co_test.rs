@@ -27,3 +27,5 @@ fn test_1() -> () {
     let ret = block_on(hello_latter());
     println!("{}", ret);
 }
+
+fn main() {}

@@ -1,10 +1,9 @@
 use std;
-use std::io;
-use std::io::Read;
-use std::io::ErrorKind;
-use std::fs::File;
 use std::fs::remove_file;
-
+use std::fs::File;
+use std::io;
+use std::io::ErrorKind;
+use std::io::Read;
 
 static FILE_NAME: &str = "hello.txt";
 
@@ -88,7 +87,7 @@ fn read_username_from_file_simple(name: &str) -> Result<String, io::Error> {
 #[test]
 #[allow(unused_variables)]
 fn test_read_file() {
-    let r =std::fs::write(FILE_NAME,"hello");
+    let r = std::fs::write(FILE_NAME, "hello");
     let s = read_username_from_file(FILE_NAME).unwrap();
     println!("{}", s);
     let s = read_username_from_file_simple(FILE_NAME).unwrap();
@@ -96,3 +95,5 @@ fn test_read_file() {
     let s = std::fs::read_to_string(FILE_NAME).unwrap();
     println!("{}", s);
 }
+
+fn main() {}

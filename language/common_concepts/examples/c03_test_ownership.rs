@@ -65,3 +65,5 @@ fn str_arr(arr: &[i32]) -> String {
     }
     ret
 }
+
+fn main() {}

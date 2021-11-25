@@ -90,3 +90,5 @@ pub fn value_type() {
     arr[2] = 42;
     println!("The value of arr is: {}", arr[2]);
 }
+
+fn main() {}
