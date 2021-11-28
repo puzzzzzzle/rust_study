@@ -72,7 +72,7 @@ mod test_collections {
         // 访问不存在的元素岁抛错误
         // 类似Python的逻辑, get or expect
         // println!("{:?}",map1["k2"]);
-
+        println!("{:?}", map1.get("k2").unwrap_or(&"not found".to_string()));
         // 不存在再更新等逻辑
         map1.entry("k2".to_string()).or_insert("v2".to_string());
         map1.entry("k2".to_string()).or_insert("v22".to_string()); // 以存在后, 不会更新

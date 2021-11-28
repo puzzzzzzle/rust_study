@@ -60,7 +60,8 @@ pub fn value_type() {
 
     let var = (4.5, 44, '好', "哈哈哈");
     // error tuple 不会自带 to_string
-    // println!("The value of var is: {}", var);
+    // 但是带Debug, 只要所有内部变量都是Debug的
+    println!("The value of var is: {:?}", var);
     // 类似c++17的结构化绑定
     // rust中叫 解构（destructuring）
     let (a, b, c, d) = var;

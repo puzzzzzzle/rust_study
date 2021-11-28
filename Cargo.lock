@@ -82,6 +82,7 @@ dependencies = [
 name = "common_concepts"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "common",
  "futures",
  "log",
