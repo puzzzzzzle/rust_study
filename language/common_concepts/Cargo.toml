@@ -10,5 +10,7 @@ edition = "2018"
 futures = "*"
 rand = "0.5.5"
 common = { path = "../../common" }
+common_macros = { path = "../../common_macros" }
+
 log = "*"
-anyhow = "*"
+anyhow = "^1"

@@ -2,6 +2,7 @@
 
 members = [
     "common",
+    "common_macros",
     "language/common_concepts",
     #    "language/rust_call_c_auto",
     "language/rust_call_c_manul",
