@@ -4,8 +4,10 @@ members = [
     "common",
     "common_macros",
     "language/common_concepts",
-    #    "language/rust_call_c_auto",
-    "language/rust_call_c_manul",
+    "rust_with_c/rust_with_c_manul",
+    # 依赖clang
+#    "rust_with_c/rust_call_c_auto",
+#    "rust_with_c/c_call_rust_auto",
     "module_test/guess_game",
     "module_test/hello_mod",
 ]
