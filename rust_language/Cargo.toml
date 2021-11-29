@@ -9,8 +9,8 @@ edition = "2018"
 [dependencies]
 futures = "*"
 rand = "0.5.5"
-common = { path = "../../common" }
-common_macros = { path = "../../common_macros" }
+common = { path = "../common" }
+common_macros = { path = "../common_macros" }
 
 log = "*"
 anyhow = "^1"

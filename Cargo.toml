@@ -3,7 +3,7 @@
 members = [
     "common",
     "common_macros",
-    "language/common_concepts",
+    "rust_language",
     "rust_with_c/rust_with_c_manul",
     # 依赖clang
 #    "rust_with_c/rust_call_c_auto",
