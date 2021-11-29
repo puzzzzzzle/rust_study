@@ -2,7 +2,7 @@
 
 members = [
     "common",
-    "common_macros",
+    "proc_macros",
     "rust_language",
     "rust_with_c/rust_with_c_manul",
     # 依赖clang
