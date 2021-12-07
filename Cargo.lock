@@ -84,18 +84,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "common",
- "common_macros",
  "futures",
  "log",
+ "proc_macros",
  "rand 0.5.6",
-]
-
-[[package]]
-name = "common_macros"
-version = "0.1.0"
-dependencies = [
- "quote 1.0.10",
- "syn 1.0.82",
 ]
 
 [[package]]
@@ -525,6 +517,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba508cc11742c0dc5c1659771673afbab7a0efab23aa17e854cbab0837ed0b43"
 dependencies = [
  "unicode-xid 0.2.2",
+]
+
+[[package]]
+name = "proc_macros"
+version = "0.1.0"
+dependencies = [
+ "quote 1.0.10",
+ "syn 1.0.82",
 ]
 
 [[package]]

@@ -1,4 +1,4 @@
-use common_macros::trace_var;
+use proc_macros::trace_var;
 #[trace_var(p, n)]
 fn factorial(mut n: u64) -> u64 {
     let mut p = 1;
