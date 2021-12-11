@@ -9,13 +9,9 @@ use syn::{parse_macro_input, parse_quote, Expr, Ident, ItemFn, Local, Pat, Stmt,
 
 /// Parses a list of variable names separated by commas.
 ///
-///     a, b, c
-///
 /// This is how the compiler passes in arguments to our attribute -- it is
 /// everything inside the delimiters after the attribute name.
 ///
-///     #[trace_var(a, b, c)]
-///                 ^^^^^^^
 struct Args {
     vars: Set<Ident>,
 }
@@ -62,11 +58,11 @@ impl Args {
     /// Produces an expression that assigns the right-hand side to the left-hand
     /// side and then prints the value.
     ///
-    ///     // Before
-    ///     VAR = INIT
+    /// // Before
+    /// VAR = INIT
     ///
-    ///     // After
-    ///     { VAR = INIT; println!("VAR = {:?}", VAR); }
+    /// // After
+    /// { VAR = INIT; println!("VAR = {:?}", VAR); }
     fn assign_and_print(&mut self, left: Expr, op: &dyn ToTokens, right: Expr) -> Expr {
         let right = fold::fold_expr(self, right);
         parse_quote!({
@@ -78,11 +74,11 @@ impl Args {
     /// Produces a let-binding that assigns the right-hand side to the left-hand
     /// side and then prints the value.
     ///
-    ///     // Before
-    ///     let VAR = INIT;
+    /// // Before
+    /// let VAR = INIT;
     ///
-    ///     // After
-    ///     let VAR = { let VAR = INIT; println!("VAR = {:?}", VAR); VAR };
+    /// // After
+    /// let VAR = { let VAR = INIT; println!("VAR = {:?}", VAR); VAR };
     fn let_and_print(&mut self, local: Local) -> Stmt {
         let Local { pat, init, .. } = local;
         let init = self.fold_expr(*init.unwrap().1);
@@ -150,20 +146,6 @@ impl Fold for Args {
 
 /// Attribute to print the value of the given variables each time they are
 /// reassigned.
-///
-/// # Example
-///
-/// ```
-/// #[trace_var(p, n)]
-/// fn factorial(mut n: u64) -> u64 {
-///     let mut p = 1;
-///     while n > 1 {
-///         p *= n;
-///         n -= 1;
-///     }
-///     p
-/// }
-/// ```
 pub fn trace_var(args: TokenStream, input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as ItemFn);
 
