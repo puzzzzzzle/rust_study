@@ -16,3 +16,8 @@ use proc_macro::TokenStream;
 pub fn trace_var(args: TokenStream, input: TokenStream) -> TokenStream {
     trace_var::trace_var(args, input)
 }
+
+#[proc_macro_derive(StructName)]
+pub fn struct_name(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    struct_name::struct_name(input)
+}

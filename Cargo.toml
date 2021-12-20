@@ -3,11 +3,12 @@
 members = [
     "common",
     "proc_macros",
+    "proc_macros_trait",
     "rust_language",
     "rust_with_c/rust_with_c_manul",
     # 依赖clang
-#    "rust_with_c/rust_call_c_auto",
-#    "rust_with_c/c_call_rust_auto",
+    #    "rust_with_c/rust_call_c_auto",
+    #    "rust_with_c/c_call_rust_auto",
     "module_test/guess_game",
     "module_test/hello_mod",
 ]

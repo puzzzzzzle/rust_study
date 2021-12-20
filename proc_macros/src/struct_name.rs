@@ -1,14 +1,17 @@
 //! 对一个struct添加get_name实现
-#[proc_macro_derive(Trait)]
-pub fn derive_trait(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let input = parse_macro_input!(input as DeriveInput);
+
+use proc_macro;
+use quote;
+use syn;
+
+pub fn struct_name(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = syn::parse_macro_input!(input as syn::DeriveInput);
 
     let name = input.ident;
-
-    let expanded = quote! {
-        impl Trait for #name {
-            fn print(&self) -> usize {
-                println!("{}","hello from #name")
+    let expanded = quote::quote! {
+        impl StructName for #name {
+            fn struct_name() -> String {
+                stringify!(#name).to_string()
            }
         }
     };
