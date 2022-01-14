@@ -22,6 +22,8 @@ pub fn var_change() {
     let x = x * 2;
 
     println!("The value of x is: {}", x);
+    // 新特性, 字符串格式化可以直接捕获变量, 终于有了...
+    println!("The value of x is: {x}");
 
     let spaces = "   ";
     println!("The value of spaces is: {}", spaces);
