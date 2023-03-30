@@ -1,0 +1,4 @@
+- 和简单的c交互: extern 相关函数就行
+- 和c交互: bindgen
+- 和c++交互: cxx
+- 和不能更改的c++库交互: autocxx

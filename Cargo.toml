@@ -6,6 +6,7 @@ members = [
     "proc_macros_trait",
     "rust_language",
     "rust_with_c/rust_with_c_manul",
+    "rust_with_c/use_cxx_lib",
     # 依赖clang
     #    "rust_with_c/rust_call_c_auto",
     #    "rust_with_c/c_call_rust_auto",
