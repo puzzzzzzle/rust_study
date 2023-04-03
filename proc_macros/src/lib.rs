@@ -19,7 +19,7 @@ pub fn trace_var(args: TokenStream, input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro_derive(StructName)]
-pub fn struct_name(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+pub fn struct_name(input: TokenStream) -> TokenStream {
     struct_name::struct_name(input)
 }
 
