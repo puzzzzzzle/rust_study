@@ -14,3 +14,4 @@ members = [
     "module_test/guess_game",
     "module_test/hello_mod",
 ]
+resolver = "2"
