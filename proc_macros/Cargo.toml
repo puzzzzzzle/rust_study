@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-syn = { version = "^1", features = ["full", "fold"] }
+syn = { version = "*", features = ["full", "fold"] }
 quote = "^1"
 proc_macros_trait = { path = "../proc_macros_trait" }
 [lib]

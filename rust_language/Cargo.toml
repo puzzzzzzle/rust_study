@@ -8,7 +8,7 @@ edition = "2021"
 
 [dependencies]
 futures = "*"
-rand = "0.5.5"
+rand = "*"
 common = { path = "../common" }
 proc_macros = { path = "../proc_macros" }
 

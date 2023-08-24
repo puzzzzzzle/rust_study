@@ -8,6 +8,6 @@ edition = "2021"
 
 [dependencies]
 # 多个 package 可以使用不同版本的依赖, 最终只会使用一个
-rand = "0.5.0"
-function_name = "0.2.0"
+rand = "*"
+function_name = "*"
 guess_game = { path = "../guess_game" }
