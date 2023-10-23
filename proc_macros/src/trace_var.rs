@@ -119,13 +119,6 @@ impl Fold for Args {
                     Expr::Assign(fold::fold_expr_assign(self, e))
                 }
             }
-            Expr::Assign(e) => {
-                if self.should_print_expr(&e.left) {
-                    self.assign_and_print(*e.left, &e.eq_token, *e.right)
-                } else {
-                    Expr::Assign(fold::fold_expr_assign(self, e))
-                }
-            }
             _ => fold::fold_expr(self, e),
         }
     }

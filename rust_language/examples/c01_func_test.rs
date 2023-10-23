@@ -92,8 +92,8 @@ fn closure_test() {
     let v1 = 1;
     // int 默认实现了copy trait, 所以捕获的时候使用了copy, 因此可以多次调用
     let fn_test = |x| x + v1;
-    println!("{}", fn_test(4));
-    println!("{}", fn_test(4));
+    println!("{:?}", fn_test(4));
+    println!("{:?}", fn_test(4));
 
     // String 没有实现 copy, 返回值有用到了 v1, 会直接take ownership 了, 导致 fn_test 之后, v1 不可用了, fn_test 也只能使用一次
     let v1 = "s1".to_string();
