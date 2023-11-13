@@ -13,5 +13,6 @@ members = [
     #    "rust_with_c/c_call_rust_auto",
     "module_test/guess_game",
     "module_test/hello_mod",
+    "rust_with_python/pyo3_test"
 ]
 resolver = "2"
