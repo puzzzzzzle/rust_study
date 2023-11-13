@@ -10,6 +10,8 @@ fn func_test() {
     info!("hello by ret {}", hello_ret_int(40));
     info!("hello by test_if {}", test_if(true));
     info!("hello by test_if {}", test_if(false));
+    let value = 33;
+    info!("value is {value}");
     loop_test();
 }
 fn hello_func() {
