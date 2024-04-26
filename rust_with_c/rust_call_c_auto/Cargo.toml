@@ -1,5 +1,5 @@
 [package]
-name = "rust_call_c"
+name = "rust_call_c_auto"
 version = "0.1.0"
 edition = "2021"
 

@@ -2,10 +2,11 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
+    println!("Running build.rs...");
     // Compile the C library
     cc::Build::new()
         .file("src/wrapper.c")
-        .compile("libzero");
+        .compile("libwrapper.a");
 
 
     // The bindgen::Builder is the main entry point
