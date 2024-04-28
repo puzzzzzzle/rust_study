@@ -6,7 +6,7 @@ fn main() {
     // Compile the C library
     cc::Build::new()
         .file("src/wrapper.c")
-        .compile("libwrapper.a");
+        .compile("libwrapper");
 
 
     // The bindgen::Builder is the main entry point
