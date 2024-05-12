@@ -6,8 +6,11 @@ fn main() {
     // Compile the C library
     cc::Build::new()
         .file("src/wrapper.c")
-        .compile("libwrapper");
+        .compile("wrapper");
 
+    // Tell cargo to tell rustc to link our `hello` library. Cargo will
+    // automatically know it must look for a `libhello.a` file.
+    println!("cargo:rustc-link-lib=wrapper");
 
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for
