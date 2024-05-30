@@ -65,7 +65,7 @@ fn loop_test() {
         }
     };
 }
-fn outter_fn() -> i32 {
+fn outer_fn() -> i32 {
     pub fn inner_fn() -> i32 {
         1
     }
@@ -73,7 +73,7 @@ fn outter_fn() -> i32 {
 }
 #[test]
 fn test_fn() {
-    println!("{}", outter_fn());
+    println!("{}", outer_fn());
 }
 #[derive(Debug, Copy, Clone)]
 #[allow(dead_code)]

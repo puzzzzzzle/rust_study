@@ -10,7 +10,7 @@ fn test_struct() {
         sign_in_count: 0,
         active: true,
     };
-    user1.email = String::from("khalid@kkkkk.com");
+    user1.email = "khalid@kkkkk.com".into();
     let user2 = build_user("kkk".to_string());
     let black = Color(0, 0, 0);
     println!("{}", black.0)
