@@ -331,6 +331,7 @@ dependencies = [
  "anyhow",
  "common",
  "futures",
+ "lazy_static",
  "log",
  "proc_macros",
  "rand 0.8.5",
