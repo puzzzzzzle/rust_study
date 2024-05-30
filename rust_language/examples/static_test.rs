@@ -31,9 +31,6 @@ fn main() {
     };
 
     unsafe_save_gbl_data(&mut data);
-    if let Some(gbl_data) = &GLB_DATA {
-        println!("{:?}", gbl_data);
-    }
     unsafe {
         if let Some(gbl_data) = &GLB_DATA {
             println!("{:?}", gbl_data);
