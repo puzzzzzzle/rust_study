@@ -15,7 +15,7 @@ members = [
     # 依赖 python3.x
     "rust_with_python/pyo3_test",
     # 依赖clang
-    "rust_with_c/use_autocxx_lib",
+#    "rust_with_c/use_autocxx_lib",
     "rust_with_c/rust_call_c_auto",
     "rust_with_c/c_call_rust_auto",
 ]
