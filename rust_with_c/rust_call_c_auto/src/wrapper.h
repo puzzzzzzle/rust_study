@@ -1,5 +1,3 @@
-//#pragma once
+#pragma once
 
-int zero() {
-    return 0;
-}
+int zero();

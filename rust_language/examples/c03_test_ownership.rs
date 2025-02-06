@@ -20,12 +20,14 @@ fn test_ownership() {
 fn take_ownership(s: String) {
     println!("{}", s);
 }
+
 // takes_and_gives_back 将传入字符串并返回该值
 fn takes_and_gives_back(s: String) -> String {
     // a_string 进入作用域
 
     s // 返回 a_string 并移出给调用的函数
 }
+
 #[test]
 fn test_ref() {
     let mut s1 = String::from("hello ");
@@ -43,6 +45,7 @@ fn test_ref() {
     let s4 = &mut s1;
     println!("{}", s4);
 }
+
 fn borrow(s: &mut String) {
     s.push_str(" world")
 }
@@ -57,6 +60,7 @@ fn test_slice() {
     }
     println!("{}", str_arr(&a[..]));
 }
+
 fn str_arr(arr: &[i32]) -> String {
     let mut ret = String::from("");
     for i in arr.iter() {
@@ -64,6 +68,23 @@ fn str_arr(arr: &[i32]) -> String {
         ret.push_str(",");
     }
     ret
+}
+
+fn mut_borrow_sub(arg: &mut String, append: &str) {
+    arg.push_str(append);
+}
+
+fn mut_borrow(arg: &mut String, append: &str) {
+    mut_borrow_sub(arg, append);
+    arg.push_str(" from parent")
+}
+
+#[test]
+fn test_mut()
+{
+    let mut s = "hello world".to_string();
+    mut_borrow(&mut s, "1");
+    mut_borrow(&mut s, "2");
 }
 
 fn main() {}

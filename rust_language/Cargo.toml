@@ -11,6 +11,6 @@ futures = "*"
 rand = "*"
 common = { path = "../common" }
 proc_macros = { path = "../proc_macros" }
-
+lazy_static = "*"
 log = "*"
 anyhow = "^1"
