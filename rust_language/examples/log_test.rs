@@ -7,16 +7,14 @@ use std::path::PathBuf;
 fn main() -> Result<()> {
     common::init_env()?;
     info!("hello info");
-    info!(
-        "cwd {}",
-        env::current_dir().unwrap().as_os_str().to_str().unwrap()
-    );
     let curr_dir = env::current_dir()
         .unwrap_or(PathBuf::from("get cwd fail"))
-        .as_os_str()
         .to_str()
-        .ok_or_else(|| anyhow!("cannot convert to str"))?
-        .to_string();
+        .unwrap_or("get cwd fail")
+        .to_string(); // PathBuf::from("get cwd fail") 是临时变量, 必须最终转火所有权
+    let curr_dir = env::current_dir()
+        .map(|p| p.to_string_lossy().into_owned()) // 自动处理非 UTF-8 路径
+        .unwrap_or_else(|_| "get_cwd_failed".to_string());
     info!("cwd {curr_dir}");
     Ok(())
 }
