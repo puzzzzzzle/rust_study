@@ -14,3 +14,5 @@ proc_macros = { path = "../proc_macros" }
 lazy_static = "*"
 log = "*"
 anyhow = "^1"
+reqwest = { version = "*", features = ["json"] }
+tokio = { version = "^1", features = ["full"] }

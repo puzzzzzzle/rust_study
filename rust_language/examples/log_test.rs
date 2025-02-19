@@ -1,9 +1,18 @@
-use anyhow::{Result, anyhow};
+use anyhow::{Result, anyhow, Context};
 use common;
 use log::*;
 use std::env;
 use std::path::PathBuf;
+#[allow(unused)]
+fn find_user(id: u32) -> Option<String> {
+    // 模拟查找用户
+    Some("Alice".to_string())
+}
 
+fn get_user(id: u32) -> Result<String> {
+    find_user(id).context("用户不存在") // 将 None 转为错误
+}
+#[allow(unused)]
 fn main() -> Result<()> {
     common::init_env()?;
     info!("hello info");
