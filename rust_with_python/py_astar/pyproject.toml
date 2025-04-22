@@ -1,0 +1,19 @@
+[project]
+name = "py-astar"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "puzzzzzzle", email = "2359173906@qq.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.maturin]
+module-name = "py_astar._core"
+python-packages = ["py_astar"]
+python-source = "src"
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"

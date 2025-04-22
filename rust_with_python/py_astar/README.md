@@ -1,0 +1,4 @@
+- 创建: `uv init --lib --build-backend maturin py_astar`
+    - Using --build-backend implies --package.
+- 构建
+    - `uv venv & uv sync`
