@@ -1,7 +1,10 @@
 use pathfinding::prelude::astar;
 use std::error::Error;
 use std::fmt;
+use pyo3::{pyclass, pymethods,PyResult,PyErr};
+
 #[derive(Debug)]
+#[pyclass]
 pub struct PathFindError {
     details: String,
 }
@@ -12,6 +15,7 @@ impl fmt::Display for PathFindError {
 }
 impl Error for PathFindError {}
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[pyclass]
 pub struct Pos(pub i16, pub i16);
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd)]
@@ -26,6 +30,7 @@ impl PartialEq<(Pos, u32)> for Successor {
     }
 }
 
+#[pyclass]
 pub struct Board {
     pub width: u8,                  // 地图的宽度(列数)
     pub height: u8,                 // 地图的高度(行数)
@@ -114,21 +119,35 @@ impl Board {
         result
     }
 }
+#[pyclass]
 pub struct AStar {
     board: Board,
 }
+
 impl AStar {
     pub fn new(board: Board) -> Self {
         AStar { board }
     }
-
-    pub fn set_allow_diagonal(&mut self, allow_diagonal: bool) {
-        self.board.allow_diagonal = allow_diagonal;
+}
+impl From<Board> for AStar {
+    fn from(board: Board) -> Self {
+        AStar { board }
     }
-    pub fn allow_diagonal(&self) -> bool {
-        self.board.allow_diagonal
-    }
+}
+impl TryFrom<Vec<&str>> for AStar {
+    type Error = PathFindError;
 
+    fn try_from(board_lines: Vec<&str>) -> Result<Self, Self::Error> {
+        Board::new(board_lines, false).map(AStar::from)
+    }
+}
+#[pymethods]
+impl AStar {
+    #[new]
+    pub fn py_new(board_lines: Vec<String>) -> PyResult<Self> {
+        let board_lines_ref: Vec<&str> = board_lines.iter().map(|s| s.as_str()).collect();
+        AStar::try_from(board_lines_ref).map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(e.to_string()))
+    }
     pub fn astar(&self, start: Pos, goal: Pos) -> Option<Vec<Pos>> {
         let result = astar(
             &start,
@@ -145,16 +164,10 @@ impl AStar {
 
         result.map(|(path, _)| path)
     }
-}
-impl TryFrom<Vec<&str>> for AStar {
-    type Error = PathFindError;
-
-    fn try_from(board_lines: Vec<&str>) -> Result<Self, Self::Error> {
-        Board::new(board_lines, false).map(AStar::from)
+    pub fn set_allow_diagonal(&mut self, allow_diagonal: bool) {
+        self.board.allow_diagonal = allow_diagonal;
     }
-}
-impl From<Board> for AStar {
-    fn from(board: Board) -> Self {
-        AStar { board }
+    pub fn allow_diagonal(&self) -> bool {
+        self.board.allow_diagonal
     }
 }
