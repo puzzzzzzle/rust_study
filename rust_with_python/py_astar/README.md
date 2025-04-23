@@ -1,4 +1,9 @@
 - 创建: `uv init --lib --build-backend maturin py_astar`
     - Using --build-backend implies --package.
 - 构建
-    - `uv venv & uv sync`
+- `uv venv # or ./venv/bin/active`: 创建/激活环境
+- `uv sync`: 同步依赖
+- `uv tool run maturin develop`: 编译rs的so
+  - `uv tool run maturin develop --bindings pyo3` : 同时更新pyi
+- `uv build`: 编译py 的wheel
+- `uv run src/test.py`: 运行py的测试用例

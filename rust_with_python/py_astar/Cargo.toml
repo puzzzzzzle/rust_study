@@ -6,8 +6,11 @@ edition = "2021"
 [lib]
 name = "_core"
 # "cdylib" is necessary to produce a shared library for Python to import from.
-crate-type = ["cdylib"]
-
+# 同时生成动态库和静态库，兼顾Python调用和Rust测试
+# cdylib - 供Python调用的动态库
+# rlib   - 供Rust测试使用的静态库
+crate-type = ["cdylib", "rlib"]
+#crate-type = ["cdylib"]
 [dependencies]
 # "extension-module" tells pyo3 we want to build an extension module (skips linking against libpython.so)
 # "abi3-py39" tells pyo3 (and maturin) to build using the stable ABI with minimum Python version 3.9
