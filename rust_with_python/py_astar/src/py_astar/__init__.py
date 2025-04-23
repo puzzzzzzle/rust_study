@@ -1,5 +1,2 @@
-from py_astar._core import hello_from_bin
+from py_astar._core import version
 
-
-def hello() -> str:
-    return hello_from_bin()
