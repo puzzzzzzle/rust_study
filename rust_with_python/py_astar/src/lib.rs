@@ -14,5 +14,7 @@ pub fn version() -> String {
 fn _core(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(version, m)?)?;
     m.add_class::<AStar>()?;
+    m.add_class::<PathFindError>()?;
+    m.add_class::<Pos>()?;
     Ok(())
 }

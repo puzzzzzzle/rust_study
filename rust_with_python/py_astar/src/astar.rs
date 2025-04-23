@@ -8,15 +8,52 @@ use pyo3::{pyclass, pymethods,PyResult,PyErr};
 pub struct PathFindError {
     details: String,
 }
+impl Error for PathFindError {}
+#[pymethods]
+impl PathFindError {
+    #[getter]
+    fn details(&self) -> String {
+        self.details.clone()
+    }
+}
 impl fmt::Display for PathFindError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.details)
     }
 }
-impl Error for PathFindError {}
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[pyclass]
 pub struct Pos(pub i16, pub i16);
+#[pymethods]
+impl Pos {
+    #[new]
+    fn new(x: i16, y: i16) -> Self {
+        Pos(x, y)
+    }
+    // 获取第一个坐标值(x)
+    #[getter]
+    fn x(&self) -> i16 {
+        self.0
+    }
+
+    // 获取第二个坐标值(y)
+    #[getter]
+    fn y(&self) -> i16 {
+        self.1
+    }
+
+    // 设置第一个坐标值(x)
+    #[setter]
+    fn set_x(&mut self, value: i16) {
+        self.0 = value;
+    }
+
+    // 设置第二个坐标值(y)
+    #[setter]
+    fn set_y(&mut self, value: i16) {
+        self.1 = value;
+    }
+}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd)]
 pub struct Successor {
@@ -30,7 +67,6 @@ impl PartialEq<(Pos, u32)> for Successor {
     }
 }
 
-#[pyclass]
 pub struct Board {
     pub width: u8,                  // 地图的宽度(列数)
     pub height: u8,                 // 地图的高度(行数)
@@ -164,10 +200,10 @@ impl AStar {
 
         result.map(|(path, _)| path)
     }
-    pub fn set_allow_diagonal(&mut self, allow_diagonal: bool) {
+    pub fn py_set_allow_diagonal(&mut self, allow_diagonal: bool) {
         self.board.allow_diagonal = allow_diagonal;
     }
-    pub fn allow_diagonal(&self) -> bool {
+    pub fn py_allow_diagonal(&self) -> bool {
         self.board.allow_diagonal
     }
 }
