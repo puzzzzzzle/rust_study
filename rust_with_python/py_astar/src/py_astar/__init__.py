@@ -1,2 +1,2 @@
-from py_astar._core import version
+from ._core import version
 
