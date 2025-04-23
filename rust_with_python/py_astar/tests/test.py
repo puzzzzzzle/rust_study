@@ -1,5 +1,6 @@
-import sys
-sys.path.append('../')
+# uv 会吧当前工程以 edit mode 加入到 .venv 中, 不需要再手动添加
+# import sys
+# sys.path.append('../src')
 
 from py_astar._core import version, AStar, Pos
 
