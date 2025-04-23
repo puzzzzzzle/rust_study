@@ -9,4 +9,4 @@ name = "pyo3_test"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "^0.22.4"
+pyo3 = "^0.24.2"

@@ -10,10 +10,10 @@ fn test_astar_cls() {
         "1348512",
         "61453X1",
         "7861243"];
-    let astar:AStar = board.into();
-    let start = Pos(0,1);
-    let goal = Pos(6,2);
-    let result = astar.astar(start,goal);
+    let astar: AStar = board.try_into().unwrap();
+    let start = Pos(0, 1);
+    let goal = Pos(6, 2);
+    let result = astar.astar(start, goal);
     let result = result.expect("No path found");
-    println!("path is {:}",Board::path_to_str(&result))
+    println!("path is {:}", Board::path_to_str(&result))
 }

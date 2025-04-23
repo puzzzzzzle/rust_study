@@ -1,5 +1,16 @@
 use pathfinding::prelude::astar;
-
+use std::error::Error;
+use std::fmt;
+#[derive(Debug)]
+pub struct PathFindError {
+    details: String,
+}
+impl fmt::Display for PathFindError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.details)
+    }
+}
+impl Error for PathFindError {}
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Pos(pub i16, pub i16);
 
@@ -16,15 +27,14 @@ impl PartialEq<(Pos, u32)> for Successor {
 }
 
 pub struct Board {
-    pub width: u8,                // 地图的宽度(列数)
-    pub height: u8,               // 地图的高度(行数)
+    pub width: u8,                  // 地图的宽度(列数)
+    pub height: u8,                 // 地图的高度(行数)
     pub data: Vec<Vec<Option<u8>>>, // 二维网格数据，存储每个格子的值
-    pub allow_diagonal: bool      // 是否允许对角线移动
+    pub allow_diagonal: bool,       // 是否允许对角线移动
 }
 
-
 impl Board {
-    pub fn new(board_lines: Vec<&str>, allow_diagonal: bool) -> Self {
+    pub fn new(board_lines: Vec<&str>, allow_diagonal: bool) -> Result<Self, PathFindError> {
         let width = board_lines[0].len() as u8;
         let height = board_lines.len() as u8;
         let mut data = Vec::new();
@@ -34,12 +44,26 @@ impl Board {
                 match c {
                     'X' => row.push(None),
                     '1'..='9' => row.push(Some(c as u8 - b'0')),
-                    _ => panic!("invalid character")
+                    _ => {
+                        return Err(PathFindError {
+                            details: format!("Invalid character in line: {}", board_line),
+                        })
+                    }
                 }
+            }
+            if row.len() != width as usize {
+                return Err(PathFindError {
+                    details: format!("Invalid line length: {}", board_line),
+                });
             }
             data.push(row);
         }
-        Board { width, height, data, allow_diagonal }
+        Ok(Board {
+            width,
+            height,
+            data,
+            allow_diagonal,
+        })
     }
 
     pub fn get_successors(&self, position: &Pos) -> Vec<Successor> {
@@ -57,27 +81,30 @@ impl Board {
                     }
                 }
                 let new_position = Pos(position.0 + dx, position.1 + dy);
-                if new_position.0 < 0 || new_position.0 >= self.width.into() || new_position.1 < 0 || new_position.1 >= self.height.into() {
+                if new_position.0 < 0
+                    || new_position.0 >= self.width.into()
+                    || new_position.1 < 0
+                    || new_position.1 >= self.height.into()
+                {
                     continue;
                 }
                 let board_value = self.data[new_position.1 as usize][new_position.0 as usize];
                 if let Some(board_value) = board_value {
-                    successors.push(Successor { pos: new_position, cost: board_value as u32 });
+                    successors.push(Successor {
+                        pos: new_position,
+                        cost: board_value as u32,
+                    });
                 }
             }
         }
 
         successors
     }
-    pub fn path_to_str(path: &Vec<Pos>)->String
-    {
+    pub fn path_to_str(path: &Vec<Pos>) -> String {
         let mut result = String::new();
         for p in path {
             // 格式化为 "(x,y): cost" 的形式
-            let s = format!("({},{}); ",
-                            p.0,
-                            p.1,
-            );
+            let s = format!("({},{}); ", p.0, p.1,);
             result.push_str(&s);
         }
         // 移除最后一个分号和空格
@@ -95,21 +122,35 @@ impl AStar {
         AStar { board }
     }
 
-    pub fn astar(&self,start:Pos,goal:Pos) -> Option<Vec<Pos>>
-    {
+    pub fn set_allow_diagonal(&mut self, allow_diagonal: bool) {
+        self.board.allow_diagonal = allow_diagonal;
+    }
+    pub fn allow_diagonal(&self) -> bool {
+        self.board.allow_diagonal
+    }
+
+    pub fn astar(&self, start: Pos, goal: Pos) -> Option<Vec<Pos>> {
         let result = astar(
             &start,
-            |p| self.board.get_successors(p).iter().map(|s| (s.pos, s.cost)).collect::<Vec<_>>(),
+            |p| {
+                self.board
+                    .get_successors(p)
+                    .iter()
+                    .map(|s| (s.pos, s.cost))
+                    .collect::<Vec<_>>()
+            },
             |p| ((p.0 - goal.0).abs() + (p.1 - goal.1).abs()) as u32,
-            |p| *p==goal);
+            |p| *p == goal,
+        );
 
-       result.map(|(path, _)| path)
+        result.map(|(path, _)| path)
     }
 }
-impl From<Vec<&str>> for AStar{
-    fn from(board_lines: Vec<&str>) -> Self {
-        let board = Board::new(board_lines, false);
-        AStar { board }
+impl TryFrom<Vec<&str>> for AStar {
+    type Error = PathFindError;
+
+    fn try_from(board_lines: Vec<&str>) -> Result<Self, Self::Error> {
+        Board::new(board_lines, false).map(AStar::from)
     }
 }
 impl From<Board> for AStar {
