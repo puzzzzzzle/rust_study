@@ -1,143 +1,119 @@
-use pyo3::prelude::*;
-use std::collections::{BinaryHeap, HashMap};
+use pathfinding::prelude::astar;
 
-/// A*算法节点结构
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
-struct Node {
-    x: i32,
-    y: i32,
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct Pos(pub i16, pub i16);
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd)]
+pub struct Successor {
+    pub pos: Pos,
+    pub cost: u32,
 }
-
-/// 用于优先队列的排序节点
-#[derive(Eq, PartialEq)]
-struct PriorityNode {
-    node: Node,
-    f_score: i32,
-}
-
-impl Ord for PriorityNode {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        other.f_score.cmp(&self.f_score)
+// Used to make writing tests easier
+impl PartialEq<(Pos, u32)> for Successor {
+    fn eq(&self, other: &(Pos, u32)) -> bool {
+        self.pos == other.0 && self.cost == other.1
     }
 }
 
-impl PartialOrd for PriorityNode {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.cmp(other))
-    }
+pub struct Board {
+    pub width: u8,                // 地图的宽度(列数)
+    pub height: u8,               // 地图的高度(行数)
+    pub data: Vec<Vec<Option<u8>>>, // 二维网格数据，存储每个格子的值
+    pub allow_diagonal: bool      // 是否允许对角线移动
 }
 
-/// A*路径查找器
-#[pyclass]
-pub struct AStarPathfinder {
-    grid: Vec<Vec<bool>>, // true表示可通过
-    start: Node,
-    end: Node,
-    width: i32,
-    height: i32,
-}
 
-/// A*路径查找实现
-impl AStarPathfinder {
-    pub fn new(grid: Vec<Vec<bool>>, start: (i32, i32), end: (i32, i32)) -> Self {
-        // 先计算尺寸再移动所有权
-        let width = if !grid.is_empty() {
-            grid[0].len() as i32
-        } else {
-            0
-        };
-        let height = grid.len() as i32;
-        AStarPathfinder {
-            grid,
-            start: Node {
-                x: start.0,
-                y: start.1,
-            },
-            end: Node { x: end.0, y: end.1 },
-            width,
-            height,
-        }
-    }
-    /// 启发式函数（曼哈顿距离）
-    fn heuristic(&self, node: (i32, i32)) -> i32 {
-        (self.end.x - node.0).abs() + (self.end.y - node.1).abs()
-    }
-
-    /// 获取有效邻居节点
-    fn get_neighbors(&self, node: &Node) -> Vec<Node> {
-        let mut neighbors = Vec::new();
-        for dx in -1..=1 {
-            for dy in -1..=1 {
-                if dx == 0 && dy == 0 {
-                    continue;
+impl Board {
+    pub fn new(board_lines: Vec<&str>, allow_diagonal: bool) -> Self {
+        let width = board_lines[0].len() as u8;
+        let height = board_lines.len() as u8;
+        let mut data = Vec::new();
+        for board_line in board_lines {
+            let mut row: Vec<Option<u8>> = Vec::new();
+            for c in board_line.chars() {
+                match c {
+                    'X' => row.push(None),
+                    '1'..='9' => row.push(Some(c as u8 - b'0')),
+                    _ => panic!("invalid character")
                 }
-                let x = node.x + dx;
-                let y = node.y + dy;
-                if x >= 0 && x < self.width && y >= 0 && y < self.height {
-                    if self.grid[y as usize][x as usize] {
-                        neighbors.push(Node { x, y });
+            }
+            data.push(row);
+        }
+        Board { width, height, data, allow_diagonal }
+    }
+
+    pub fn get_successors(&self, position: &Pos) -> Vec<Successor> {
+        let mut successors = Vec::new();
+        for dx in -1i16..=1 {
+            for dy in -1i16..=1 {
+                if self.allow_diagonal {
+                    if dx == 0 && dy == 0 {
+                        continue;
+                    }
+                } else {
+                    // Omit diagonal moves (and moving to the same position)
+                    if (dx + dy).abs() != 1 {
+                        continue;
                     }
                 }
-            }
-        }
-        neighbors
-    }
-
-    /// 重建路径
-    fn reconstruct_path(&self, came_from: &HashMap<Node, Node>, current: Node) -> Vec<(i32, i32)> {
-        let mut path = vec![(current.x, current.y)];
-        let mut current = current;
-        while let Some(node) = came_from.get(&current) {
-            path.push((node.x, node.y));
-            current = *node;
-        }
-        path.reverse();
-        path
-    }
-
-    /// 执行路径查找
-    pub fn find_path(&self) -> Option<Vec<(i32, i32)>> {
-        let mut open_set = BinaryHeap::new();
-        let mut came_from = HashMap::new();
-        let mut g_score = HashMap::new();
-
-        g_score.insert(self.start, 0);
-        open_set.push(PriorityNode {
-            node: self.start,
-            f_score: self.heuristic((self.start.x, self.start.y)),
-        });
-
-        while let Some(PriorityNode { node, .. }) = open_set.pop() {
-            if node == self.end {
-                return Some(self.reconstruct_path(&came_from, node));
-            }
-
-            for neighbor in self.get_neighbors(&node) {
-                let tentative_g = g_score.get(&node).unwrap_or(&i32::MAX) + 1;
-                if tentative_g < *g_score.get(&neighbor).unwrap_or(&i32::MAX) {
-                    came_from.insert(neighbor, node);
-                    g_score.insert(neighbor, tentative_g);
-                    let f_score = tentative_g + self.heuristic((neighbor.x, neighbor.y));
-                    open_set.push(PriorityNode {
-                        node: neighbor,
-                        f_score,
-                    });
+                let new_position = Pos(position.0 + dx, position.1 + dy);
+                if new_position.0 < 0 || new_position.0 >= self.width.into() || new_position.1 < 0 || new_position.1 >= self.height.into() {
+                    continue;
+                }
+                let board_value = self.data[new_position.1 as usize][new_position.0 as usize];
+                if let Some(board_value) = board_value {
+                    successors.push(Successor { pos: new_position, cost: board_value as u32 });
                 }
             }
         }
 
-        None
+        successors
+    }
+    pub fn path_to_str(path: &Vec<Pos>)->String
+    {
+        let mut result = String::new();
+        for p in path {
+            // 格式化为 "(x,y): cost" 的形式
+            let s = format!("({},{}); ",
+                            p.0,
+                            p.1,
+            );
+            result.push_str(&s);
+        }
+        // 移除最后一个分号和空格
+        if !result.is_empty() {
+            result.truncate(result.len() - 2);
+        }
+        result
     }
 }
-
-/// A* 路径查找python接口
-#[pymethods]
-impl AStarPathfinder {
-    #[new]
-    pub fn py_new(grid: Vec<Vec<bool>>, start: (i32, i32), end: (i32, i32)) -> Self {
-        AStarPathfinder::new(grid, start, end)
+pub struct AStar {
+    board: Board,
+}
+impl AStar {
+    pub fn new(board: Board) -> Self {
+        AStar { board }
     }
-    pub fn py_find_path(&self) -> Option<Vec<(i32, i32)>> {
-        self.find_path()
+
+    pub fn astar(&self,start:Pos,goal:Pos) -> Option<Vec<Pos>>
+    {
+        let result = astar(
+            &start,
+            |p| self.board.get_successors(p).iter().map(|s| (s.pos, s.cost)).collect::<Vec<_>>(),
+            |p| ((p.0 - goal.0).abs() + (p.1 - goal.1).abs()) as u32,
+            |p| *p==goal);
+
+       result.map(|(path, _)| path)
+    }
+}
+impl From<Vec<&str>> for AStar{
+    fn from(board_lines: Vec<&str>) -> Self {
+        let board = Board::new(board_lines, false);
+        AStar { board }
+    }
+}
+impl From<Board> for AStar {
+    fn from(board: Board) -> Self {
+        AStar { board }
     }
 }

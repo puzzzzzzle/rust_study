@@ -4,6 +4,7 @@
 - `uv venv # or ./venv/bin/active`: 创建/激活环境
 - `uv sync`: 同步依赖
 - `uv tool run maturin develop`: 编译rs的so
-  - `uv tool run maturin develop --bindings pyo3` : 同时更新pyi
+  - `stubgen -m py_astar._core -o src` : mypy 从 so 生成 pyi
+  - `uv tool run maturin develop --extras=generate-pyi` : 同时更新pyi
 - `uv build`: 编译py 的wheel
 - `uv run src/test.py`: 运行py的测试用例
