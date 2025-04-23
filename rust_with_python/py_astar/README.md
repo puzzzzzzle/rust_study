@@ -4,9 +4,9 @@
 - `uv venv # or ./venv/bin/active`: 创建/激活环境
 - `uv sync`: 同步依赖
 - `uv tool run maturin develop`: 编译rs的so
-  - `stubgen -m py_astar._core -o src` : mypy 从 so 生成 pyi
-  - `uv tool run maturin develop --extras=generate-pyi` : 同时更新pyi
-  - 或者用 pycharm 的 binary skeletons 自动生成功能
+  - `stubgen -m py_astar._core -o src` : mypy 从 so 生成 pyi, 效果比较差
+  - pyo3 的 pyi 生成功能还在开发总
+  - 或者用 pycharm 的 binary skeletons 自动生成功能, 目前效果最好
     - eg: `rm -vr  /root/.cache/JetBrains/PyCharm2024.3/python_stubs/-571463692/`
     - 重启 pycharm 触发刷新
 - `uv build`: 编译py 的wheel
