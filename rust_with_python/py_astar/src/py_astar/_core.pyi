@@ -18,7 +18,7 @@ def version(*args, **kwargs): # real signature unknown
 
 class AStar(object):
     # no doc
-    def astar(self, *args, **kwargs): # real signature unknown
+    def py_astar(self, *args, **kwargs): # real signature unknown
         pass
 
     def py_allow_diagonal(self, *args, **kwargs): # real signature unknown

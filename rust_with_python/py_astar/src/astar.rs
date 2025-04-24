@@ -164,26 +164,6 @@ impl AStar {
     pub fn new(board: Board) -> Self {
         AStar { board }
     }
-}
-impl From<Board> for AStar {
-    fn from(board: Board) -> Self {
-        AStar { board }
-    }
-}
-impl TryFrom<Vec<&str>> for AStar {
-    type Error = PathFindError;
-
-    fn try_from(board_lines: Vec<&str>) -> Result<Self, Self::Error> {
-        Board::new(board_lines, false).map(AStar::from)
-    }
-}
-#[pymethods]
-impl AStar {
-    #[new]
-    pub fn py_new(board_lines: Vec<String>) -> PyResult<Self> {
-        let board_lines_ref: Vec<&str> = board_lines.iter().map(|s| s.as_str()).collect();
-        AStar::try_from(board_lines_ref).map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(e.to_string()))
-    }
     pub fn astar(&self, start: Pos, goal: Pos) -> Option<Vec<Pos>> {
         let result = astar(
             &start,
@@ -199,6 +179,33 @@ impl AStar {
         );
 
         result.map(|(path, _)| path)
+    }
+}
+impl From<Board> for AStar {
+    fn from(board: Board) -> Self {
+        AStar { board }
+    }
+}
+impl TryFrom<Vec<&str>> for AStar {
+    type Error = PathFindError;
+
+    fn try_from(board_lines: Vec<&str>) -> Result<Self, Self::Error> {
+        Board::new(board_lines, false).map(AStar::from)
+    }
+}
+// pymethods 下的方法 rust 尽量不要用, 不然要链接Python库, 例如使用了python中的error等
+#[pymethods]
+impl AStar {
+    #[new]
+    pub fn py_new(board_lines: Vec<String>) -> PyResult<Self> {
+        let board_lines_ref: Vec<&str> = board_lines.iter().map(|s| s.as_str()).collect();
+        AStar::try_from(board_lines_ref).map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(e.to_string()))
+    }
+    pub fn py_astar(&self, start: Pos, goal: Pos) -> PyResult<Vec<Pos>> {
+        let result = self.astar(start, goal);
+        result
+            .ok_or_else(|| PathFindError { details: "Path not found".to_string() })
+            .map_err(|e| PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(e.to_string()))
     }
     pub fn py_set_allow_diagonal(&mut self, allow_diagonal: bool) {
         self.board.allow_diagonal = allow_diagonal;
