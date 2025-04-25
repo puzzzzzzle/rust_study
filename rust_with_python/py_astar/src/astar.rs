@@ -155,6 +155,7 @@ impl Board {
         result
     }
 }
+/// astar impl
 #[pyclass]
 pub struct AStar {
     board: Board,

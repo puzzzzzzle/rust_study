@@ -52,3 +52,8 @@ class TestAStar:
         with pytest.raises(RuntimeError) as excinfo:
             astar.py_astar(Pos(0, 1), Pos(7, 8))
         assert str(excinfo.value) == 'Path not found'
+
+    def test_astar_doc(self):
+        """测试文档字符串"""
+        assert AStar.__doc__ is not None
+        print(AStar.__doc__)

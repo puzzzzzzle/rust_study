@@ -13,7 +13,6 @@ members = [
     # 有依赖的部分, 没装的可以关掉对应模块
 
     # 依赖 python3.x
-    "rust_with_python/pyo3_test",
     "rust_with_python/py_astar",
     # 依赖clang
 #    "rust_with_c/use_autocxx_lib",
