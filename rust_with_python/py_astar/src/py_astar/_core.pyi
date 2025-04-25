@@ -2,11 +2,7 @@
 # module py_astar._core
 # from /data/srcs/Repos/rust_study/rust_with_python/py_astar/src/py_astar/_core.abi3.so
 # by generator 1.147
-"""
-A Python module implemented in Rust. The name of this function must match
-the `lib.name` setting in the `Cargo.toml`, else Python will not be able to
-import the module.
-"""
+""" astar wrapper for python """
 # no imports
 
 # functions
@@ -17,11 +13,11 @@ def version(*args, **kwargs): # real signature unknown
 # classes
 
 class AStar(object):
-    # no doc
-    def py_astar(self, *args, **kwargs): # real signature unknown
+    """ astar impl """
+    def py_allow_diagonal(self, *args, **kwargs): # real signature unknown
         pass
 
-    def py_allow_diagonal(self, *args, **kwargs): # real signature unknown
+    def py_astar(self, *args, **kwargs): # real signature unknown
         pass
 
     def py_set_allow_diagonal(self, *args, **kwargs): # real signature unknown
@@ -75,7 +71,7 @@ __all__ = [
     'Pos',
 ]
 
-__loader__ = None # (!) real value is '<_frozen_importlib_external.ExtensionFileLoader object at 0x7f6268af5490>'
+__loader__ = None # (!) real value is '<_frozen_importlib_external.ExtensionFileLoader object at 0x7fe94c6e5510>'
 
-__spec__ = None # (!) real value is "ModuleSpec(name='py_astar._core', loader=<_frozen_importlib_external.ExtensionFileLoader object at 0x7f6268af5490>, origin='/data/srcs/Repos/rust_study/rust_with_python/py_astar/src/py_astar/_core.abi3.so')"
+__spec__ = None # (!) real value is "ModuleSpec(name='py_astar._core', loader=<_frozen_importlib_external.ExtensionFileLoader object at 0x7fe94c6e5510>, origin='/data/srcs/Repos/rust_study/rust_with_python/py_astar/src/py_astar/_core.abi3.so')"
 
