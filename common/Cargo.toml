@@ -12,6 +12,11 @@ log = "*"
 log4rs = "^1"
 criterion = "0.6.0"
 
+# 目前 criterion 和 cargo 还有兼容问题, 需要手动指定
 [[bench]]
-name = "log_bench"
-harness = false  # 关键！禁用默认测试框架
+name = "bench1"
+harness = false
+
+[[bench]]
+name = "bench2"
+harness = false
