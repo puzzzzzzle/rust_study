@@ -10,3 +10,8 @@ edition = "2021"
 anyhow = "^1"
 log = "*"
 log4rs = "^1"
+criterion = "0.6.0"
+
+[[bench]]
+name = "log_bench"
+harness = false  # 关键！禁用默认测试框架

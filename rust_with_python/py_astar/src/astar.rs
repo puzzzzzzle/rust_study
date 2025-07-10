@@ -19,6 +19,7 @@ impl PathFindError {
 impl fmt::Display for PathFindError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.details)
+        
     }
 }
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]

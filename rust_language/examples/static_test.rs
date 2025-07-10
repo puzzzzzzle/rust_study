@@ -1,9 +1,4 @@
 use std::cell::{OnceCell, RefCell};
-use std::os::linux::raw::stat;
-use std::rc::Rc;
-use std::sync::Mutex;
-use lazy_static::lazy_static;
-
 #[derive(Default, Debug)]
 pub struct StaticData
 {
@@ -44,7 +39,8 @@ fn main() {
 
     unsafe_save_gbl_data(&data);
     unsafe {
-        if let Some(gbl_data) = &GLB_DATA {
+        let gbl_data_ptr = &raw const GLB_DATA;
+        if let Some(gbl_data) = &*gbl_data_ptr {
             println!("{:?}", gbl_data);
         }
     }
