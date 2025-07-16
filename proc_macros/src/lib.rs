@@ -8,7 +8,7 @@ mod trace_var;
 
 use proc_macro::TokenStream;
 
-/// 过程宏 - 熟悉宏
+/// 过程宏 - 属性宏
 /// Attribute to print the value of the given variables each time they are
 /// reassigned.
 /// 对指定的变量的任意改变操作, 打印日志
