@@ -5,6 +5,8 @@ members = [
     "proc_macros",
     "proc_macros_trait",
     "rust_language",
+    "rust_language_examples",
+
     "rust_with_c/use_cxx_lib",
     "module_test/guess_game",
     "module_test/hello_mod",
@@ -17,6 +19,6 @@ members = [
     # 依赖clang
 #    "rust_with_c/use_autocxx_lib",
     "rust_with_c/rust_call_c_auto",
-    "rust_with_c/c_call_rust_auto",
+    "rust_with_c/c_call_rust_auto", "rust_language_examples",
 ]
 resolver = "2"
