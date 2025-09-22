@@ -1,5 +1,5 @@
 [package]
-name = "common_concepts"
+name = "rust_language"
 version = "0.1.0"
 authors = ["khalidzhang <khalidzhang@tencent.com>"]
 edition = "2024"

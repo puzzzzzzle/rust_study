@@ -273,21 +273,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "common_concepts"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "common",
- "futures",
- "lazy_static",
- "log",
- "proc_macros",
- "rand 0.9.0",
- "reqwest",
- "tokio",
-]
-
-[[package]]
 name = "core-foundation"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1801,6 +1786,21 @@ dependencies = [
  "cc",
  "libc",
  "stopwatch",
+]
+
+[[package]]
+name = "rust_language"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "common",
+ "futures",
+ "lazy_static",
+ "log",
+ "proc_macros",
+ "rand 0.4.6",
+ "reqwest",
+ "tokio",
 ]
 
 [[package]]

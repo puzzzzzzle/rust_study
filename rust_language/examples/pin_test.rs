@@ -1,3 +1,4 @@
+use std::marker::PhantomPinned;
 use std::pin::Pin;
 
 #[derive(Debug)]
@@ -9,7 +10,7 @@ struct Test {
 impl Test {
     fn new(txt: &str) -> Self {
         Test {
-            a: String::from(txt),
+            a: txt.to_string(),
             b: std::ptr::null(),
         }
     }
@@ -19,7 +20,7 @@ impl Test {
         self.b = self_ref;
     }
 
-    fn a(&self) -> &str {
+    fn a(&self) -> &String {
         &self.a
     }
 
@@ -30,6 +31,13 @@ impl Test {
         );
         unsafe { &*(self.b) }
     }
+}
+
+#[derive(Debug)]
+struct Test1 {
+    a: String,
+    b: *const String,
+    _marker: PhantomPinned,
 }
 
 fn main() {
