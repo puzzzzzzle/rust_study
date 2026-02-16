@@ -3,7 +3,6 @@
 
 use proc_macros::trace_var;
 
-
 /// 会在执行时, 对任何p n 的赋值操作, 打印状态
 ///
 #[test]

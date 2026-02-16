@@ -22,23 +22,73 @@
 
 extern crate proc_macro;
 use ::proc_macro::TokenStream;
-use ::quote::quote_spanned;
-use ::syn::{self, parse_macro_input, spanned::Spanned, ItemFn};
+use ::quote::{format_ident, quote_spanned};
+use ::syn::{self, parse_macro_input, spanned::Spanned, Expr, ItemFn, Meta};
 
-pub fn func_name(_: TokenStream, input: TokenStream) -> TokenStream {
+fn parse_invocation_macro_name(
+    args: TokenStream,
+    default_name: syn::Ident,
+) -> syn::Result<syn::Ident> {
+    if args.is_empty() {
+        return Ok(default_name);
+    }
+
+    let meta = syn::parse::<Meta>(args)?;
+    match meta {
+        Meta::Path(path) => path.get_ident().cloned().ok_or_else(|| {
+            syn::Error::new(
+                path.span(),
+                "expected identifier, e.g. #[func_name(my_macro)]",
+            )
+        }),
+        Meta::NameValue(name_value) if name_value.path.is_ident("name") => match name_value.value {
+            Expr::Path(expr_path) => expr_path.path.get_ident().cloned().ok_or_else(|| {
+                syn::Error::new(
+                    expr_path.path.span(),
+                    "expected identifier in name = <ident>",
+                )
+            }),
+            other => Err(syn::Error::new(
+                other.span(),
+                "expected identifier in name = <ident>",
+            )),
+        },
+        _ => Err(syn::Error::new(
+            meta.span(),
+            "expected #[func_name], #[func_name(my_macro)] or #[func_name(name = my_macro)]",
+        )),
+    }
+}
+
+pub fn func_name(args: TokenStream, input: TokenStream) -> TokenStream {
     // 解析输入
     let mut input_fn = parse_macro_input!(input as ItemFn);
 
     // 获取函数名
-    let ident = input_fn.sig.ident.to_string();
+    let fn_name = input_fn.sig.ident.to_string();
+    let macro_name_for_call = match parse_invocation_macro_name(
+        args,
+        syn::Ident::new("func_name", input_fn.sig.ident.span()),
+    ) {
+        Ok(name) => name,
+        Err(err) => return err.to_compile_error().into(),
+    };
+    let internal_macro_name = format_ident!("__{}_func_name_macro", input_fn.sig.ident);
 
     // println!("-------------- {}", ident);
-    // 构造 func_name 宏
+    // 构造内部唯一宏, 避免与用户代码里的宏名冲突
     let expanded = quote::quote! {
     #[allow(unused_macros)]
-    macro_rules! func_name {
+    macro_rules! #internal_macro_name {
         () => {
-           #ident
+           #fn_name
+        };
+    }
+
+    #[allow(unused_macros)]
+    macro_rules! #macro_name_for_call {
+        () => {
+            #internal_macro_name!()
         };
     }
     };
