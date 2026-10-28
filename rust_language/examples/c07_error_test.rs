@@ -1,11 +1,8 @@
 use std;
-use std::fs::remove_file;
 use std::fs::File;
 use std::io;
 use std::io::ErrorKind;
 use std::io::Read;
-
-static FILE_NAME: &str = "hello.txt";
 
 #[test]
 #[should_panic]
@@ -17,8 +14,9 @@ fn panic_test() {
 #[allow(unused_variables)]
 #[should_panic]
 fn result_match_test() {
-    let rm = remove_file(FILE_NAME);
-    let f = File::open(FILE_NAME);
+    let dir = tempfile::tempdir().unwrap();
+    let file_name = dir.path().join("hello.txt");
+    let f = File::open(&file_name);
     let f = match f {
         Ok(file) => file,
         Err(error) => {
@@ -30,14 +28,14 @@ fn result_match_test() {
 #[test]
 #[allow(unused_variables)]
 fn result_match_resume_test() {
-    let rm = remove_file(FILE_NAME);
-
-    let f = File::open(FILE_NAME);
+    let dir = tempfile::tempdir().unwrap();
+    let file_name = dir.path().join("hello.txt");
+    let f = File::open(&file_name);
 
     let f = match f {
         Ok(file) => file,
         Err(error) => match error.kind() {
-            ErrorKind::NotFound => match File::create(FILE_NAME) {
+            ErrorKind::NotFound => match File::create(&file_name) {
                 Ok(fc) => fc,
                 Err(e) => panic!("Problem creating the file: {:?}", e),
             },
@@ -50,16 +48,16 @@ fn result_match_resume_test() {
 #[allow(unused_variables)]
 #[should_panic]
 fn unwrap_test() {
-    let rm = remove_file(FILE_NAME);
-    let f = File::open(FILE_NAME).unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let f = File::open(dir.path().join("hello.txt")).unwrap();
 }
 
 #[test]
 #[allow(unused_variables)]
 #[should_panic]
 fn expect_test() {
-    let rm = remove_file(FILE_NAME);
-    let f = File::open(FILE_NAME).expect("Failed to open");
+    let dir = tempfile::tempdir().unwrap();
+    let f = File::open(dir.path().join("hello.txt")).expect("Failed to open");
 }
 
 fn read_username_from_file(name: &str) -> Result<String, io::Error> {
@@ -87,12 +85,15 @@ fn read_username_from_file_simple(name: &str) -> Result<String, io::Error> {
 #[test]
 #[allow(unused_variables)]
 fn test_read_file() {
-    let r = std::fs::write(FILE_NAME, "hello");
-    let s = read_username_from_file(FILE_NAME).unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let file_name = dir.path().join("hello.txt");
+    std::fs::write(&file_name, "hello").unwrap();
+    let file_name = file_name.to_str().unwrap();
+    let s = read_username_from_file(file_name).unwrap();
     println!("{}", s);
-    let s = read_username_from_file_simple(FILE_NAME).unwrap();
+    let s = read_username_from_file_simple(file_name).unwrap();
     println!("{}", s);
-    let s = std::fs::read_to_string(FILE_NAME).unwrap();
+    let s = std::fs::read_to_string(file_name).unwrap();
     println!("{}", s);
 }
 

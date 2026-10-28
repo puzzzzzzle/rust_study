@@ -50,7 +50,7 @@ impl Args {
     /// a `let` binding.
     fn should_print_pat(&self, p: &Pat) -> bool {
         match p {
-            Pat::Ident(ref p) => self.vars.contains(&p.ident),
+            Pat::Ident(p) => self.vars.contains(&p.ident),
             _ => false,
         }
     }

@@ -20,6 +20,7 @@ members = [
     # 依赖clang
 #    "rust_with_c/use_autocxx_lib",
     "rust_with_c/rust_call_c_auto",
-    "rust_with_c/c_call_rust_auto", "rust_language_examples", "declarative_macro",
+    "rust_with_c/c_call_rust_auto",
 ]
 resolver = "2"
+exclude = ["rust_with_c/use_autocxx_lib"]

@@ -23,7 +23,7 @@ impl fmt::Display for PathFindError {
     }
 }
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-#[pyclass]
+#[pyclass(from_py_object)]
 pub struct Pos(pub i16, pub i16);
 #[pymethods]
 impl Pos {

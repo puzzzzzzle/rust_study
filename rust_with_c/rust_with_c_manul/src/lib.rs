@@ -1,7 +1,7 @@
 use libc;
 
 // 导入c的函数
-extern
+unsafe extern "C"
 {
     pub fn c_zero() -> libc::c_int;
     #[link_name = "c_one_t"]
@@ -15,7 +15,7 @@ extern
 /// ```c
 /// extern int rs_zero();
 /// ```
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn rs_zero() -> libc::c_int
 {
     println!("c call rs func");

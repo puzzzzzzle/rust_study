@@ -1,10 +1,17 @@
 use anyhow::{anyhow, Result};
 use common;
 use log::*;
+use std::sync::Once;
+
+static INIT: Once = Once::new();
+
+fn init_env() {
+    INIT.call_once(|| common::init_env().unwrap());
+}
 
 #[test]
 fn handle_option_question_mark() -> Result<()> {
-    common::init_env()?;
+    init_env();
     let s: Option<String> = None;
     // s? 返回None, 不是Error
     // s?;
@@ -13,7 +20,7 @@ fn handle_option_question_mark() -> Result<()> {
 }
 #[test]
 fn handle_option_match() -> Result<()> {
-    common::init_env()?;
+    init_env();
     let s: Option<String> = None;
     let ret = match s {
         None => -1,
@@ -26,7 +33,7 @@ fn handle_option_match() -> Result<()> {
 // 这回导致无法主动返回None
 #[test]
 fn handle_option_map() -> Result<()> {
-    common::init_env()?;
+    init_env();
     let s: Option<String> = Some("hello".to_string());
     // map系列无法主动返回None
     // let _no: Option<String> = s.map(|s| None);
@@ -40,7 +47,7 @@ fn handle_option_map() -> Result<()> {
 // and_then 系列知识简单的调用, 不会自动包装
 #[test]
 fn handle_option_and_then() -> Result<()> {
-    common::init_env()?;
+    init_env();
     let mut s: Option<String> = Some("hello".to_string());
     let _none: Option<String> = s.as_ref().and_then(|_| None);
     let _len = s.as_ref().and_then(|para| Some(para.len()));

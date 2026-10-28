@@ -2,7 +2,7 @@
 name = "common"
 version = "0.1.0"
 authors = ["khalidzhang <khalidzhang@tencent.com>"]
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -10,7 +10,7 @@ edition = "2021"
 anyhow = "^1"
 log = "*"
 log4rs = "^1"
-criterion = "0.6.0"
+criterion = "0.8.2"
 
 # 目前 criterion 和 cargo 还有兼容问题, 需要手动指定
 [[bench]]
