@@ -1,3 +1,4 @@
+#[cfg(test)]
 use proc_macros::func_name;
 #[test]
 #[func_name]

@@ -1,3 +1,5 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
 #[test]
 fn test_ownership() {
     let s1 = String::from("hello ");

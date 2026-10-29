@@ -6,21 +6,8 @@ members = [
     "proc_macros",
     "proc_macros_trait",
     "rust_language",
-    "rust_language_examples",
-
-    "rust_with_c/use_cxx_lib",
     "module_test/guess_game",
     "module_test/hello_mod",
-    # ffi 相关
-    "rust_with_c/rust_with_c_manul",
-    # 有依赖的部分, 没装的可以关掉对应模块
-
-    # 依赖 python3.x
-    "rust_with_python/py_astar",
-    # 依赖clang
-#    "rust_with_c/use_autocxx_lib",
-    "rust_with_c/rust_call_c_auto",
-    "rust_with_c/c_call_rust_auto",
 ]
 resolver = "2"
-exclude = ["rust_with_c/use_autocxx_lib"]
+exclude = ["interop"]

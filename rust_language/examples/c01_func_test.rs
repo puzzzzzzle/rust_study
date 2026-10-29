@@ -1,4 +1,8 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
+#[cfg(test)]
 use common;
+#[cfg(test)]
 use log::*;
 
 #[test]

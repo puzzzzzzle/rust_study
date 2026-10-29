@@ -1,4 +1,4 @@
-use anyhow::{Result, anyhow, Context};
+use anyhow::{Result, Context};
 use common;
 use log::*;
 use std::env;
@@ -9,6 +9,7 @@ fn find_user(id: u32) -> Option<String> {
     Some("Alice".to_string())
 }
 
+#[allow(dead_code)]
 fn get_user(id: u32) -> Result<String> {
     find_user(id).context("用户不存在") // 将 None 转为错误
 }

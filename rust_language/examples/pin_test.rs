@@ -1,5 +1,4 @@
 use std::marker::PhantomPinned;
-use std::pin::Pin;
 
 #[derive(Debug)]
 struct Test {
@@ -33,6 +32,7 @@ impl Test {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Test1 {
     a: String,

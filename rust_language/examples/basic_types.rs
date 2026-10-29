@@ -1,3 +1,5 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
 use std::{fmt};
 use std::str::FromStr;
 
@@ -19,6 +21,7 @@ fn test_fmt() {
 }
 
 #[test]
+#[allow(unused_variables)]
 fn test_basic_types() {
     let x = 5;
     let x = 5f32; // float
@@ -27,6 +30,7 @@ fn test_basic_types() {
 }
 
 #[test]
+#[allow(unused_variables)]
 fn test_array(){
     let xs = [1, 2, 3];
     let xs = [0;5];
@@ -55,10 +59,10 @@ fn test_vector()
     vec.push(1);
     vec.push(2);
     println!("{:?}",vec);
-    let mut vec = vec![1, 2, 3];
+    let vec = vec![1, 2, 3];
     println!("{:?}",vec);
     type I32Vec = Vec<i32>;
-    let mut vec: I32Vec = vec![1, 2, 3];
+    let vec: I32Vec = vec![1, 2, 3];
     println!("{:?}",vec);
 }
 #[derive(Debug)]
@@ -92,6 +96,7 @@ impl FromStr for Point {
     }
 }
 #[test]
+#[allow(unused_variables)]
 fn test_from_str(){
     // 下面3中方式等价
     let point :Point= "1,2".parse().unwrap();

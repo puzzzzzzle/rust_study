@@ -1,4 +1,5 @@
-use std::cell::{OnceCell, RefCell};
+use std::cell::RefCell;
+#[allow(dead_code)]
 #[derive(Default, Debug)]
 pub struct StaticData
 {

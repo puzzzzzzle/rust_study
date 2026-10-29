@@ -26,6 +26,7 @@ impl fmt::Display for Structure {
 
 // Put a `Structure` inside of the structure `Deep`. Make it printable
 // also.
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Deep(Structure);
 

@@ -1,10 +1,16 @@
+#[cfg(test)]
 use anyhow::{anyhow, Result};
+#[cfg(test)]
 use common;
+#[cfg(test)]
 use log::*;
+#[cfg(test)]
 use std::sync::Once;
 
+#[cfg(test)]
 static INIT: Once = Once::new();
 
+#[cfg(test)]
 fn init_env() {
     INIT.call_once(|| common::init_env().unwrap());
 }

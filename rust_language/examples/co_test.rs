@@ -1,3 +1,6 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
+#[cfg(test)]
 use futures::executor::block_on;
 use std::thread::sleep;
 use std::time::Duration;

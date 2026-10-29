@@ -58,6 +58,7 @@ mod test_collections {
         println!("{} {:?}", s1.chars().count(), s1.chars())
     }
 
+    #[cfg(test)]
     use std::collections::HashMap;
 
     #[test]

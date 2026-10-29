@@ -10,4 +10,4 @@
     - eg: `rm -vr  /root/.cache/JetBrains/PyCharm2024.3/python_stubs/-571463692/`
     - 重启 pycharm 触发刷新
 - `uv build`: 编译py 的wheel
-- `uv run src/test.py`: 运行py的测试用例
+- `uv run python -m pytest tests/test.py`: 运行 Python 测试用例

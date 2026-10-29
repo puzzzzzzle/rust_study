@@ -1,8 +1,4 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use futures::future::Lazy;
-use rand::Rng;
-
+#[allow(dead_code)]
 #[derive(Default, Debug)]
 struct Point(i32, i32);
 
@@ -28,11 +24,6 @@ impl Test
             }
     }
 }
-struct StaticData
-{
-
-}
-
 fn main() {
     let mut t = Test::default();
     let mut p = Point::default();

@@ -12,6 +12,7 @@ pub mod hello_kk {
         }
 
         #[named]
+        #[allow(dead_code)]
         fn hello_private() {
             println!(
                 "hello_mod from: func: [{} fn] mod_path:  [{}]",

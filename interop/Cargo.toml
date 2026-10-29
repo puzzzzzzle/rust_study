@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "c/c_call_rust_auto",
+    "c/rust_call_c_auto",
+    "c/rust_with_c_manul",
+    "c/use_autocxx_lib",
+    "c/use_cxx_lib",
+    "python/py_astar",
+]
+resolver = "2"

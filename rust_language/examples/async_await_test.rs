@@ -1,6 +1,6 @@
 use futures::executor::block_on;
 
-async fn hello(name : &str,data:[u8;100]) -> String {
+async fn hello(name : &str,_data:[u8;100]) -> String {
     format!("Hello, {}!", name)
 }
 async fn simple() -> String {

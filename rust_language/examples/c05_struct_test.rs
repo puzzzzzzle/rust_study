@@ -1,3 +1,5 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
 // use std::iter;
 // use std::vec::IntoIter;
 

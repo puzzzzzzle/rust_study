@@ -1,6 +1,9 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
 use std;
 use std::fs::File;
 use std::io;
+#[cfg(test)]
 use std::io::ErrorKind;
 use std::io::Read;
 

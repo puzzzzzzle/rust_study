@@ -6,6 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+// autocxx generates unsafe functions without explicit unsafe blocks.
+#![allow(unsafe_op_in_unsafe_fn)]
+
 use autocxx::prelude::*;
 include_cpp! {
     #include "input.h"

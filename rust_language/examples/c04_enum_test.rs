@@ -1,3 +1,5 @@
+#![cfg_attr(not(test), allow(dead_code))]
+
 mod row_enum {
     #[derive(Debug)]
     enum IpAddrKind {
@@ -6,6 +8,7 @@ mod row_enum {
     }
 
     #[derive(Debug)]
+    #[allow(dead_code)]
     struct IpAddr {
         kind: IpAddrKind,
         address: String,
