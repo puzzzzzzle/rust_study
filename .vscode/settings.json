@@ -1,4 +1,3 @@
 {
-    "cmake.ignoreCMakeListsMissing": true,
-    "rust-analyzer.files.exclude": ["interop"]
+    "cmake.ignoreCMakeListsMissing": true
 }

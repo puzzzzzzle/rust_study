@@ -2,8 +2,8 @@
 
 这里按主题保存可独立运行的练习。根目录的 Cargo workspace 只包含
 Rust 日常练习；C/C++、Python 互操作示例放在独立的 `interop/` workspace 中，
-需要时单独打开或运行，并安装对应的构建环境。本仓库的 VS Code 配置
-会让 rust-analyzer 默认忽略 `interop/`；单独打开 `interop/` 即可分析这些示例。
+需要时单独构建或运行，并安装对应的构建环境。编辑器可以索引两个 workspace，
+但在根目录执行 Cargo 命令不会构建 `interop/`。
 工具链版本见 `rust-toolchain.toml`。
 
 | 目录 / 包 | 内容 | 运行方式 |
@@ -37,11 +37,25 @@ Python 扩展除了 Rust 测试外，还可在 `interop/python/py_astar` 中运�
 `uv sync`、`uv run maturin develop` 和 `uv run python -m pytest tests/test.py`；
 此示例要求 Python 3.11+ 和 `uv` / `maturin`。
 
+## Workspace 与依赖版本
+
+根目录和 `interop/` 是两个独立的 Cargo workspace：
+
+| Workspace | 成员配置 | 锁文件 |
+| --- | --- | --- |
+| 日常练习 | `Cargo.toml` | `Cargo.lock` |
+| 跨语言互操作 | `interop/Cargo.toml` | `interop/Cargo.lock` |
+
+同一 workspace 的 crate 共享一份锁文件和依赖解析结果，但**不要求同名依赖只能有一个版本**：
+如果版本约束无法统一，锁文件可以同时记录该库的多个版本。两个 workspace
+各自解析和更新依赖；在根目录运行 `cargo update` 不会更新 `interop/Cargo.lock`，
+需要在 `interop/` 内单独运行 `cargo update`。
+
 ## 新增实验
 
 - 单个 API 或语法练习：放进相关包的 `examples/`，用 `cargo run -p <包> --example <名称>` 运行；测试可写在示例的 `#[test]` 中。
 - 需要自己的依赖、配置或测试集：新建独立包，并在对应 workspace 的 `Cargo.toml` 中登记。
 - 依赖其他语言或其系统库的实验放在 `interop/c/` 或 `interop/python/`，不要加入根 workspace。
+- 如果今后要集中测试某类库，而且希望它有独立的依赖更新节奏或构建环境，可以仿照 `interop/` 新建一个目录和 `[workspace]` 清单，让相关实验共享该目录下的 `Cargo.lock`；不要把它加入根 workspace 的 `members`，并在根清单的 `exclude` 中注明。
 
-两个 workspace 各自共享一个 `Cargo.lock`。
 测试尽量使用临时目录和显式传参，避免修改进程当前目录或重复初始化全局 logger。
